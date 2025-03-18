@@ -1,70 +1,44 @@
-# Terraform code to deploy three-tier architecture on azure
+# Azure Grafana Cloud Integration Demo
 
-## What is three-tier architecture?
-Three-tier architecture is a well-established software application architecture that organizes applications into three logical and physical computing tiers: the presentation tier, or user interface; the application tier, where data is processed; and the data tier, where the data associated with the application is stored and managed.
+## What does this do?
+This is a terraform project that installs a simple three tier architecture sample application on Azure and integrates this with your Grafana Cloud tenant via our agentless integration.
+The 3 tier architecture is comprised of a frontend, a backend each on an Azure VM and an Azure Mssql DB. Each tier has its own subnet as per best practices.
+This will alloy you to discover and try out Grafana cloud observability for Azure 
 
-## What is terraform?
-Terraform is an open-source infrastructure as code software tool created by HashiCorp. Users define and provision data center infrastructure using a declarative configuration language known as HashiCorp Configuration Language, or optionally JSON.
+![screenshot](images/azure-o11y-screenshot.png)
 
-## Installation
+## What you'll need
 - [Terraform](https://www.terraform.io/downloads.html)
+- [Azure CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli)
+- A Grafana cloud tenant
 
-## Problem Statement
+### Deployment Steps
 
-1. One virtual network tied in three subnets.
-2. Each subnet will have one virtual machine.
-3. First virtual machine -> allow inbound traffic from internet only.
-4. Second virtual machine -> entertain traffic from first virtual machine only and can reply the same virtual machine again.
-5. App can connect to database and database can connect to app but database cannot connect to web.
+**Step 0** \
+Make sure you are logged in with your user principal with the Azure CLI. That's what the Azure provider in this project will rely on. \
+git clone this repository 
 
-_Note: Keep main and variable files different for each component_
+**Step 1** \
+We will need to set the following environment variables: \
+`export TF_VAR_org_slug="your grafana org slug"` \
+`export TF_VAR_grafana_cloud_region="your grafana cloud region"` - find it in the cloud portal: [Grafana docs - Grafana portal](https://grafana.com/docs/grafana-cloud/security-and-account-management/cloud-portal/) \
+`export TF_VAR_azure_subscription_id="your azure subscription id where you want this stack to live and pull metrics from"` \
+`export TF_VAR_org_id="org id"` - you can find your org id in the cloud portal \
+`export TF_VAR_grafana_tf_access_policy_token="access policy token to be able to use Grafana cloud APIs with terraform" ` as per [Grafana docs - Grafana tf provider](https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/collect-azure-serverless/config-azure-metrics-serverless/#create-an-access-policy-for-the-grafana-terraform-provider) \
+`export TF_VAR_azure_app_registration_client_secret="your app registration client secret value"` 
 
-## Solution
+**Step 2** \
+`terraform init`
 
-### The Terraform resources will consists of following structure
+**Step 3** \
+`terraform plan`
 
-```
-├── main.tf                   // The primary entrypoint for terraform resources.
-├── vars.tf                   // It contain the declarations for variables.
-├── output.tf                 // It contain the declarations for outputs.
-├── terraform.tfvars          // The file to pass the terraform variables values.
-```
+**Step 4** \
+`terraform apply`
 
-### Module
+## TODO
+- Include log integration througth event hub
+- Install Alloy to pull metrics/logs/traces from the sample 3 tier application
+- Create Grafana access policy with terraform
 
-A module is a container for multiple resources that are used together. Modules can be used to create lightweight abstractions, so that you can describe your infrastructure in terms of its architecture, rather than directly in terms of physical objects.
 
-For the solution, we have created and used five modules:
-1. resourcegroup - creating resourcegroup
-2. networking - creating azure virtual network and required subnets
-3. securitygroup - creating network security group, setting desired security rules and associating them to subnets
-4. compute - creating availability sets, network interfaces and virtual machines
-5. database - creating database server and database
-
-All the stacks are placed in the modules folder and the variable are stored under **terraform.tfvars**
-
-To run the code you need to append the variables in the terraform.tfvars
-
-Each module consists minimum two files: main.tf, vars.tf
-
-resourcegroup and networking modules consists of one extra file named output.tf
-
-## Deployment
-
-### Steps
-
-**Step 0** `terraform init`
-
-used to initialize a working directory containing Terraform configuration files
-
-**Step 1** `terraform plan`
-
-used to create an execution plan
-
-**Step 2** `terraform validate`
-
-validates the configuration files in a directory, referring only to the configuration and not accessing any remote services such as remote state, provider APIs, etc
-
-**Step 3** `terraform apply`
-
-used to apply the changes required to reach the desired state of the configuration
