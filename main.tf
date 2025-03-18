@@ -50,3 +50,14 @@ module "database" {
   primary_database_admin = var.primary_database_admin
   primary_database_password = var.primary_database_password
 }
+
+module "grafanacloud" {
+  source = "./modules/grafanacloud"
+  azure_subscription_id = var.azure_subscription_id
+  grafana_cloud_region = var.grafana_cloud_region
+  org_slug = var.org_slug
+  grafana_cloud_api_key = var.grafana_cloud_api_key
+  org_id = var.org_id
+  grafana_tf_access_policy_token = var.grafana_tf_access_policy_token
+  azure_app_registration_client_secret = var.azure_app_registration_client_secret
+}

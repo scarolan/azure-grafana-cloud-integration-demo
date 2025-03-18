@@ -14,7 +14,11 @@ variable "primary_database" {}
 variable "primary_database_admin" {}
 variable "primary_database_password" {}
 variable "primary_database_version" {}
-
-
-
+variable "org_slug" {}
+variable "grafana_cloud_region" {}
+variable "azure_subscription_id" {}
+variable "grafana_cloud_api_key" {}
+variable "org_id" {}
+variable "grafana_tf_access_policy_token" {}
+variable "azure_app_registration_client_secret" {}
 
