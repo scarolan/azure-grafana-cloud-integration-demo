@@ -38,7 +38,8 @@ We will need to set the following environment variables: \
 
 ## TODO
 - Include log integration througth event hub
-- Install Alloy to pull metrics/logs/traces from the sample 3 tier application
+- Install sample app on infra and instrument with Alloy to pull metrics/logs/traces 
 - Create Grafana access policy with terraform
+- create load on the future sample app
 
 
