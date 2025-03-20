@@ -1,1 +1,0 @@
-terraform import 'module.grafanacloud.azuread_application.grafana[0]' /applications/312931a0-e91d-4294-b8ef-e6fc56c45c49
