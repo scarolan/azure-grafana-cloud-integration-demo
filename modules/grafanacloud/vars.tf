@@ -26,8 +26,3 @@ variable "grafana_tf_access_policy_token" {
   sensitive   = true
 }
 
-variable "azure_app_registration_client_secret" {
-  description = "The existing service principal client secret"
-  type        = string
-  sensitive   = true
-}
