@@ -25,7 +25,6 @@ We will need to set the following environment variables: \
 `export TF_VAR_azure_subscription_id="your azure subscription id where you want this stack to live and pull metrics from"` \
 `export TF_VAR_org_id="org id"` - you can find your org id in the cloud portal \
 `export TF_VAR_grafana_tf_access_policy_token="access policy token to be able to use Grafana cloud APIs with terraform" ` as per [Grafana docs - Grafana tf provider](https://grafana.com/docs/grafana-cloud/monitor-infrastructure/monitor-cloud-provider/azure/collect-azure-serverless/config-azure-metrics-serverless/#create-an-access-policy-for-the-grafana-terraform-provider) \
-`export TF_VAR_azure_app_registration_client_secret="your app registration client secret value"` 
 
 **Step 2** \
 `terraform init`
