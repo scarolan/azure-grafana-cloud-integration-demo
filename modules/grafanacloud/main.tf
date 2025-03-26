@@ -26,11 +26,13 @@ data "azurerm_client_config" "current" {}
 # Create Azure AD Application for Grafana Cloud
 resource "azuread_application" "grafana" {
   display_name = "grafana-cloud-azure-metrics-integration"
+  owners = [data.azurerm_client_config.current.object_id]
 }
 
 # Create Azure AD Service Principal for Grafana Cloud
 resource "azuread_service_principal" "grafana" {
   client_id = azuread_application.grafana.client_id
+  owners = [data.azurerm_client_config.current.object_id]
 }
 
 # Create Service Principal password

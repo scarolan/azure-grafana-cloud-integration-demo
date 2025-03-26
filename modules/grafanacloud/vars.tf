@@ -14,11 +14,6 @@ variable "grafana_cloud_region" {
   default     = "prod-us-east-0"
 }
 
-variable "grafana_cloud_api_key" {
-  description = "Grafana Cloud API key for initial operations"
-  type        = string
-  sensitive   = true
-}
 
 variable "org_id" {
   description = "Grafana Cloud Organization ID"
