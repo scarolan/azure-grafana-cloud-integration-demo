@@ -58,5 +58,4 @@ module "grafanacloud" {
   org_slug = var.org_slug
   org_id = var.org_id
   grafana_tf_access_policy_token = var.grafana_tf_access_policy_token
-  azure_app_registration_client_secret = var.azure_app_registration_client_secret
 }
