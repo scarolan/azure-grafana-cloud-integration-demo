@@ -16,7 +16,7 @@ This will alloy you to discover and try out Grafana cloud observability for Azur
 
 **Step 0** \
 Make sure you are logged in with your user principal with the Azure CLI. That's what the Azure provider in this project will rely on. \
-git clone this repository 
+`git clone` this repository and copy or rename the `terraform.tfvars.example` file to `terraform.tfvars`.
 
 **Step 1** \
 We will need to set the following environment variables: \
